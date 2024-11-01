@@ -16,7 +16,6 @@ dependencies:
   equatable: ^2.0.5
   get: ^4.6.6
   flutter_screenutil: ^5.9.3
-  go_router: ^14.3.0
 
 dev_dependencies:
   flutter_test:
