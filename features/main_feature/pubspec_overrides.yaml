@@ -1,0 +1,8 @@
+# melos_managed_dependency_overrides: common,dependencies,main_domain
+dependency_overrides:
+  common:
+    path: ../../shared_libraries/common
+  dependencies:
+    path: ../../shared_libraries/dependencies
+  main_domain:
+    path: ../../domain/main_domain

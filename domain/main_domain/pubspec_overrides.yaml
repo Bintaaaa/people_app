@@ -1,0 +1,8 @@
+# melos_managed_dependency_overrides: common,dependencies,main_feature
+dependency_overrides:
+  common:
+    path: ../../shared_libraries/common
+  dependencies:
+    path: ../../shared_libraries/dependencies
+  main_feature:
+    path: ../../features/main_feature
