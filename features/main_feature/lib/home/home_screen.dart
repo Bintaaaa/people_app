@@ -12,36 +12,34 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        child: Obx(
-          () {
-            final userState = controller.userState.value;
+      body: Obx(
+        () {
+          final userState = controller.userState.value;
 
-            if (userState.status.isLoading) {
-              return const CircularProgressIndicator();
-            }
+          if (userState.status.isLoading) {
+            return const CircularProgressIndicator();
+          }
 
-            if (userState.status.isHasData) {
-              List<UserEntity> data = userState.data;
-              return ListView.builder(
-                itemCount: data.length,
-                itemBuilder: (context, index) {
-                  UserEntity user = userState.data[index];
-                  return ListTile(
-                    title: Text(user.firstName),
-                  );
-                },
-              );
-            }
+          if (userState.status.isHasData) {
+            List<UserEntity> data = userState.data;
+            return ListView.builder(
+              itemCount: data.length,
+              itemBuilder: (context, index) {
+                UserEntity user = userState.data[index];
+                return ListTile(
+                  title: Text(user.firstName),
+                );
+              },
+            );
+          }
 
-            if (userState.status.isError) {
-              final errorMessage = userState.message;
-              return Text(errorMessage);
-            }
+          if (userState.status.isError) {
+            final errorMessage = userState.message;
+            return Text(errorMessage);
+          }
 
-            return const SizedBox();
-          },
-        ),
+          return const SizedBox();
+        },
       ),
     );
   }

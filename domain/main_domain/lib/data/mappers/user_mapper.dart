@@ -1,4 +1,6 @@
 import 'package:main_domain/data/models/list_user_model_dto.dart';
+import 'package:main_domain/data/models/login_model_dto.dart';
+import 'package:main_domain/domain/entities/login_entity.dart';
 import 'package:main_domain/domain/entities/user_entity.dart';
 
 class UserMapper {
@@ -20,4 +22,6 @@ class UserMapper {
     }
     return users;
   }
+
+  LoginEntity mapLoginModelToEntity(LoginModelDto data) => LoginEntity(token: data.token ?? "");
 }

@@ -1,9 +1,12 @@
+import 'dart:developer';
+
 import 'package:common/error/dio_error_handler.dart';
 import 'package:common/error/failure_response.dart';
 import 'package:dependencies/dartz/dartz.dart';
 import 'package:dependencies/dio/dio.dart';
 import 'package:main_domain/data/datasources/user_remote_data_source.dart';
 import 'package:main_domain/data/mappers/user_mapper.dart';
+import 'package:main_domain/domain/entities/login_entity.dart';
 import 'package:main_domain/domain/entities/user_entity.dart';
 import 'package:main_domain/domain/repositories/user_respository.dart';
 
@@ -22,7 +25,25 @@ class UserRepositoryImpl implements UserRepository {
         ),
       );
     } on DioException catch (error) {
-      throw DioErrorHandler.handle(error);
+      return DioErrorHandler.handle(error);
+    }
+  }
+
+  @override
+  Future<Either<FailureResponse, LoginEntity>> login({required String email, required String password}) async {
+    try {
+      final response = await datasource.login(
+        email: email,
+        password: password,
+      );
+      return Right(
+        mapper.mapLoginModelToEntity(
+          response,
+        ),
+      );
+    } on DioException catch (error, s) {
+      log("this error $s");
+      return DioErrorHandler.handle(error);
     }
   }
 }

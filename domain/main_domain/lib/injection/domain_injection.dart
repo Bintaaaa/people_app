@@ -4,6 +4,7 @@ import 'package:main_domain/data/mappers/user_mapper.dart';
 import 'package:main_domain/data/repositories/user_repository_impl.dart';
 import 'package:main_domain/domain/repositories/user_respository.dart';
 import 'package:main_domain/domain/usecases/get_list_users_use_case.dart';
+import 'package:main_domain/domain/usecases/post_login_use_case.dart';
 
 class DomainInjection {
   DomainInjection() {
@@ -35,6 +36,11 @@ class DomainInjection {
   _useCase() {
     sl.registerLazySingleton<GetListUsersUseCase>(
       () => GetListUsersUseCase(
+        repository: sl(),
+      ),
+    );
+    sl.registerLazySingleton<PostLoginUseCase>(
+      () => PostLoginUseCase(
         repository: sl(),
       ),
     );

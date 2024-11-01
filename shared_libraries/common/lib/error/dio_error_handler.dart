@@ -9,28 +9,28 @@ class DioErrorHandler {
 
   static FailureResponse _mapErrorToFailure(DioException e) {
     String errorMessage;
-
+    String? defaultMessage = e.response?.data["error"];
     switch (e.type) {
       case DioExceptionType.connectionError:
-        errorMessage = "Connection timeout. Please try again.";
+        errorMessage = defaultMessage ?? "Connection timeout. Please try again.";
         break;
       case DioExceptionType.sendTimeout:
-        errorMessage = "Send timeout. Please try again.";
+        errorMessage = defaultMessage ?? "Send timeout. Please try again.";
         break;
       case DioExceptionType.receiveTimeout:
-        errorMessage = "Receive timeout. Please try again.";
+        errorMessage = defaultMessage ?? "Receive timeout. Please try again.";
         break;
       case DioExceptionType.badResponse:
-        errorMessage = "Received invalid status code: ${e.response?.statusCode}";
+        errorMessage = defaultMessage ?? "Received invalid status code: ${e.response?.statusCode}";
         break;
       case DioExceptionType.cancel:
-        errorMessage = "Request was cancelled.";
+        errorMessage = defaultMessage ?? "Request was cancelled.";
         break;
       case DioExceptionType.unknown:
-        errorMessage = "Unexpected error occurred: ${e.message}";
+        errorMessage = defaultMessage ?? "Unexpected error occurred: ${e.message}";
         break;
       default:
-        errorMessage = "An unknown error occurred.";
+        errorMessage = defaultMessage ?? "An unknown error occurred.";
         break;
     }
 
