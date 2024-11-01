@@ -1,11 +1,11 @@
-import 'package:main_domain/data/models/user_model_dto.dart';
+import 'package:main_domain/data/models/user_data_dto.dart';
 
 class ListUserModelDTO {
   final int? page;
   final int? perPage;
   final int? total;
   final int? totalPages;
-  final List<UserModelDTO>? data;
+  final List<UserDataDTO>? data;
 
   const ListUserModelDTO({
     this.page,
@@ -20,6 +20,6 @@ class ListUserModelDTO {
         perPage: json["per_page"],
         total: json["total"],
         totalPages: json["total_pages"],
-        data: json["data"] == null ? [] : List<UserModelDTO>.from(json["data"]!.map((x) => UserModelDTO.fromJson(x))),
+        data: json["data"] == null ? [] : List<UserDataDTO>.from(json["data"]!.map((x) => UserDataDTO.fromJson(x))),
       );
 }

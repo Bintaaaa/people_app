@@ -1,3 +1,4 @@
+import 'package:common/components/text_style/text_tyle_constants.dart';
 import 'package:common/core/constans/routes_constans.dart';
 import 'package:common/state/view_data_state.dart';
 import 'package:dependencies/get/get.dart';
@@ -26,7 +27,7 @@ class HomeScreen extends StatelessWidget {
           final userState = controller.userState.value;
 
           if (userState.status.isLoading) {
-            return const CircularProgressIndicator();
+            return const Center(child: CircularProgressIndicator());
           }
 
           if (userState.status.isHasData) {
@@ -37,13 +38,25 @@ class HomeScreen extends StatelessWidget {
                 UserEntity user = userState.data[index];
                 return ListTile(
                   onTap: () {
-                    Get.toNamed(RoutesConstans.detailScreen,
-                        arguments: UserParams(
-                          id: user.id,
-                          name: user.name,
-                        ));
+                    Get.toNamed(
+                      RoutesConstans.detailScreen,
+                      arguments: UserParams(
+                        id: user.id,
+                        name: user.name,
+                      ),
+                    );
                   },
-                  title: Text(user.name),
+                  title: Text(
+                    user.name,
+                    style: TextStyleConstants.listTitles,
+                  ),
+                  subtitle: Text(
+                    user.email,
+                    style: TextStyleConstants.paragraphText,
+                  ),
+                  leading: CircleAvatar(
+                    foregroundImage: NetworkImage(user.avatar),
+                  ),
                 );
               },
             );
