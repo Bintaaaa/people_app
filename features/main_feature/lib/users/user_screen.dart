@@ -1,38 +1,33 @@
 import 'package:common/components/button/button_component.dart';
 import 'package:common/components/text_field_component/text_field_component.dart';
 import 'package:common/components/text_style/text_tyle_constants.dart';
-import 'package:common/core/constans/routes_constans.dart';
 import 'package:common/state/view_data_state.dart';
 import 'package:dependencies/flutter_screenutil/flutter_screenutil.dart';
 import 'package:dependencies/get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:main_feature/authentication/getx/login_screen_controller.dart';
+import 'package:main_feature/users/getx/user_screen_controller.dart';
 
-class LoginScreen extends StatelessWidget {
-  LoginScreen({super.key});
+enum UserScreenMode { create, update }
 
-  final LoginScreenController controller = Get.put(LoginScreenController());
+extension UserScreenExtension on UserScreenMode {
+  bool get isCreate => this == UserScreenMode.create;
+  bool get isUpdate => this == UserScreenMode.update;
+}
+
+class UserScreen extends StatelessWidget {
+  UserScreen({super.key});
+
+  final UserScreenController controller = Get.put(UserScreenController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Login",
+          _title(),
           style: TextStyleConstants.pageTitles,
         ),
         centerTitle: true,
-        actions: [
-          TextButton(
-            onPressed: () {
-              Get.offAllNamed(RoutesConstans.homeScreen);
-            },
-            child: Text(
-              "Lewati",
-              style: TextStyleConstants.button,
-            ),
-          )
-        ],
       ),
       body: SafeArea(
         child: Container(
@@ -41,9 +36,9 @@ class LoginScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               TextFieldComponent.rounded(
-                controller: controller.emailController,
-                hintText: "bijan@example.com",
-                title: "Email",
+                controller: controller.nameController,
+                hintText: "Ericson",
+                title: "Nama",
                 onChange: (value) {
                   controller.checkData();
                 },
@@ -52,10 +47,9 @@ class LoginScreen extends StatelessWidget {
                 height: 16.h,
               ),
               TextFieldComponent.rounded(
-                controller: controller.passwordController,
-                obscureText: true,
-                hintText: "xxxxxx",
-                title: "Password",
+                controller: controller.jobController,
+                hintText: "Software engineer",
+                title: "Pekerjaan",
                 onChange: (value) {
                   controller.checkData();
                 },
@@ -63,11 +57,11 @@ class LoginScreen extends StatelessWidget {
               const Spacer(),
               Obx(
                 () => ButtonComponent.primary(
-                  title: "Masuk",
-                  isLoading: controller.loginState.value.status.isLoading,
+                  title: _title(),
+                  isLoading: controller.userState.value.status.isLoading,
                   isDisable: controller.isDisable.value,
                   onPress: () {
-                    controller.login();
+                    _methodCall();
                   },
                 ),
               ),
@@ -76,5 +70,23 @@ class LoginScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  UserScreenMode _mode() {
+    if (controller.isUpdate.value) {
+      return UserScreenMode.update;
+    } else {
+      return UserScreenMode.create;
+    }
+  }
+
+  _title() {
+    if (_mode().isCreate) return "Buat User";
+    if (_mode().isUpdate) return "Update User";
+  }
+
+  _methodCall() {
+    if (_mode().isCreate) controller.createUser();
+    if (_mode().isUpdate) controller.updateUser();
   }
 }

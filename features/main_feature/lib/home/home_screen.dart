@@ -1,7 +1,9 @@
+import 'package:common/core/constans/routes_constans.dart';
 import 'package:common/state/view_data_state.dart';
 import 'package:dependencies/get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:main_domain/domain/entities/user_entity.dart';
+import 'package:main_domain/domain/params/user_params.dart';
 import 'package:main_feature/home/getx/home_screen_controller.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -12,6 +14,13 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+          child: const Icon(Icons.add),
+          onPressed: () {
+            Get.toNamed(
+              RoutesConstans.createScreen,
+            );
+          }),
       body: Obx(
         () {
           final userState = controller.userState.value;
@@ -27,7 +36,14 @@ class HomeScreen extends StatelessWidget {
               itemBuilder: (context, index) {
                 UserEntity user = userState.data[index];
                 return ListTile(
-                  title: Text(user.firstName),
+                  onTap: () {
+                    Get.toNamed(RoutesConstans.detailScreen,
+                        arguments: UserParams(
+                          id: user.id,
+                          name: user.name,
+                        ));
+                  },
+                  title: Text(user.name),
                 );
               },
             );

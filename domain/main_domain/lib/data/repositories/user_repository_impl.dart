@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:common/error/dio_error_handler.dart';
 import 'package:common/error/failure_response.dart';
 import 'package:dependencies/dartz/dartz.dart';
@@ -41,8 +39,57 @@ class UserRepositoryImpl implements UserRepository {
           response,
         ),
       );
-    } on DioException catch (error, s) {
-      log("this error $s");
+    } on DioException catch (error) {
+      return DioErrorHandler.handle(error);
+    }
+  }
+
+  @override
+  Future<Either<FailureResponse, UserEntity>> createUser({required String name, required String job}) async {
+    try {
+      final response = await datasource.createUser(
+        name: name,
+        job: job,
+      );
+      return Right(
+        mapper.mapUserModelToEntity(
+          response,
+        ),
+      );
+    } on DioException catch (error) {
+      return DioErrorHandler.handle(error);
+    }
+  }
+
+  @override
+  Future<Either<FailureResponse, bool>> deleteUser({required int id}) async {
+    try {
+      final response = await datasource.deleteUser(
+        id: id,
+      );
+      return Right(
+        response,
+      );
+    } on DioException catch (error) {
+      return DioErrorHandler.handle(error);
+    }
+  }
+
+  @override
+  Future<Either<FailureResponse, UserEntity>> updateUser(
+      {required int id, required String name, required String job}) async {
+    try {
+      final response = await datasource.updateUser(
+        id: id,
+        name: name,
+        job: job,
+      );
+      return Right(
+        mapper.mapUserModelToEntity(
+          response,
+        ),
+      );
+    } on DioException catch (error) {
       return DioErrorHandler.handle(error);
     }
   }
