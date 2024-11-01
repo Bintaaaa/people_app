@@ -22,67 +22,74 @@ class UserScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          _title(),
-          style: TextStyleConstants.pageTitles,
-        ),
-        centerTitle: true,
-        actions: _mode().isUpdate
-            ? [
-                TextButton(
-                  onPressed: () {
-                    controller.deleteUser();
-                  },
-                  child: Text(
-                    "Hapus",
-                    style: TextStyleConstants.button,
-                  ),
-                )
-              ]
-            : null,
-      ),
-      body: SafeArea(
-        child: Container(
-          margin: EdgeInsets.all(16.w),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              TextFieldComponent.rounded(
-                controller: controller.nameController,
-                hintText: "Ericson",
-                title: "Nama",
-                onChange: (value) {
-                  controller.checkData();
-                },
-              ),
-              SizedBox(
-                height: 16.h,
-              ),
-              TextFieldComponent.rounded(
-                controller: controller.jobController,
-                hintText: "Software engineer",
-                title: "Pekerjaan",
-                onChange: (value) {
-                  controller.checkData();
-                },
-              ),
-              const Spacer(),
-              Obx(
-                () => ButtonComponent.primary(
-                  title: _title(),
-                  isLoading: controller.userState.value.status.isLoading,
-                  isDisable: controller.isDisable.value,
-                  onPress: () {
-                    _methodCall();
-                  },
-                ),
-              ),
-            ],
+        appBar: AppBar(
+          title: Text(
+            _title(),
+            style: TextStyleConstants.pageTitles,
           ),
+          centerTitle: true,
+          actions: _mode().isUpdate
+              ? [
+                  TextButton(
+                    onPressed: () {
+                      controller.deleteUser();
+                    },
+                    child: Text(
+                      "Hapus",
+                      style: TextStyleConstants.button,
+                    ),
+                  )
+                ]
+              : null,
         ),
-      ),
-    );
+        body: Obx(() {
+          final statusDelete = controller.deleteState.value.status;
+          if (statusDelete.isLoading) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          return SafeArea(
+            child: Container(
+              margin: EdgeInsets.all(16.w),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  TextFieldComponent.rounded(
+                    controller: controller.nameController,
+                    hintText: "Ericson",
+                    title: "Nama",
+                    onChange: (value) {
+                      controller.checkData();
+                    },
+                  ),
+                  SizedBox(
+                    height: 16.h,
+                  ),
+                  TextFieldComponent.rounded(
+                    controller: controller.jobController,
+                    hintText: "Software engineer",
+                    title: "Pekerjaan",
+                    onChange: (value) {
+                      controller.checkData();
+                    },
+                  ),
+                  const Spacer(),
+                  Obx(
+                    () => ButtonComponent.primary(
+                      title: _title(),
+                      isLoading: controller.userState.value.status.isLoading,
+                      isDisable: controller.isDisable.value,
+                      onPress: () {
+                        _methodCall();
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        }));
   }
 
   UserScreenMode _mode() {

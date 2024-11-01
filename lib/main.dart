@@ -3,10 +3,15 @@ import 'package:common/core/route/route_name.dart';
 import 'package:dependencies/flutter_screenutil/flutter_screenutil.dart';
 import 'package:dependencies/get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:people_app/injections/injections.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
   Injections();
   runApp(const MyApp());
 }

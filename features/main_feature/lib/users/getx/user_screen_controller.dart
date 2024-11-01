@@ -64,7 +64,7 @@ class UserScreenController extends GetxController {
       (data) {
         Get.snackbar(
           "Berhasil Membuat User",
-          "Terimaksih sudah menggunakan fitur ini",
+          "Terimakasih sudah menggunakan fitur ini",
           backgroundColor: ConstansValues.colors.green,
         );
         userState.value = ViewData.loaded(
@@ -102,7 +102,7 @@ class UserScreenController extends GetxController {
         );
         Get.snackbar(
           "Berhasil Memperbaharui User",
-          "Terimaksih sudah menggunakan fitur ini",
+          "Terimakasih sudah menggunakan fitur ini",
           backgroundColor: ConstansValues.colors.green,
         );
         Get.offAllNamed(RoutesConstans.homeScreen);
@@ -131,7 +131,7 @@ class UserScreenController extends GetxController {
         );
         Get.snackbar(
           "Berhasil Hapus User",
-          "Terimaksih sudah menggunakan fitur ini",
+          "Terimakasih sudah menggunakan fitur ini",
           backgroundColor: ConstansValues.colors.green,
         );
         Get.offAllNamed(RoutesConstans.homeScreen);
