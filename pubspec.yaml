@@ -40,6 +40,8 @@ dependencies:
   # Internal Dependencies
   dependencies:
     path: shared_libraries/dependencies
+  common:
+    path: shared_libraries/common
 
 dev_dependencies:
   flutter_test:
