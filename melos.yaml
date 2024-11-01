@@ -1,0 +1,5 @@
+name: people_app
+
+packages:
+  - shared_libraries/**
+  - '*'
