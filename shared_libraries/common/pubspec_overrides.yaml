@@ -1,0 +1,8 @@
+# melos_managed_dependency_overrides: dependencies,main_domain,main_feature
+dependency_overrides:
+  dependencies:
+    path: ../dependencies
+  main_domain:
+    path: ../../domain/main_domain
+  main_feature:
+    path: ../../features/main_feature

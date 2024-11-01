@@ -42,6 +42,8 @@ dependencies:
     path: shared_libraries/dependencies
   common:
     path: shared_libraries/common
+  main_domain:
+    path: domain/main_domain
 
 dev_dependencies:
   flutter_test:

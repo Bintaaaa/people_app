@@ -13,7 +13,10 @@ dependencies:
     sdk: flutter
   dependencies:
     path: ../dependencies
-  
+  main_feature:
+    path: ../../features/main_feature
+  main_domain:
+    path: ../../domain/main_domain
 
 dev_dependencies:
   flutter_test:

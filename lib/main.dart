@@ -1,5 +1,7 @@
-import 'package:common/route/router_configuration.dart';
+import 'package:common/core/constans/routes_constans.dart';
+import 'package:common/core/route/route_name.dart';
 import 'package:dependencies/flutter_screenutil/flutter_screenutil.dart';
+import 'package:dependencies/get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:people_app/injections/injections.dart';
 
@@ -19,7 +21,7 @@ class MyApp extends StatelessWidget {
       designSize: const Size(360, 690),
       minTextAdapt: true,
       splitScreenMode: true,
-      builder: (_, child) => MaterialApp.router(
+      builder: (_, child) => GetMaterialApp(
         title: 'Teknikal Test - Bijan',
         theme: ThemeData(
           fontFamily: 'JakartaSans',
@@ -30,10 +32,8 @@ class MyApp extends StatelessWidget {
           ),
           useMaterial3: true,
         ),
-        backButtonDispatcher: RootBackButtonDispatcher(),
-        routeInformationProvider: routerConfiguration.routeInformationProvider,
-        routeInformationParser: routerConfiguration.routeInformationParser,
-        routerDelegate: routerConfiguration.routerDelegate,
+        initialRoute: RoutesConstans.splashScreen,
+        getPages: routes,
       ),
     );
   }
