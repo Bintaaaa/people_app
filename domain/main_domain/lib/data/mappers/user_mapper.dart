@@ -15,7 +15,7 @@ class UserMapper {
         UserEntity(
           id: item.id ?? 0,
           email: item.email ?? "",
-          name: item.name ?? "",
+          name: "${item.firstName ?? ""} ${item.lastName ?? ""}",
           avatar: item.avatar ?? "",
         ),
       );

@@ -20,8 +20,8 @@ class TextStyleConstants {
   );
 
   static TextStyle listTitles = TextStyle(
-    fontSize: 14.0.sp,
-    fontWeight: medium,
+    fontSize: 16.0.sp,
+    fontWeight: bold,
     letterSpacing: 0.15,
   );
 

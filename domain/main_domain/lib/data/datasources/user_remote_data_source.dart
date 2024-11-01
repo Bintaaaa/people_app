@@ -19,7 +19,7 @@ class UserRemoteDatasourceImpl implements UserRemoteDatasource {
   @override
   Future<ListUserModelDTO> fetchUsers() async {
     try {
-      final response = await dio.get(ConstansValues.apiConstans.user, queryParameters: {
+      final response = await dio.get(ConstansValues.apiConstans.users, queryParameters: {
         "page": 1,
         "per_page": 100,
       });
