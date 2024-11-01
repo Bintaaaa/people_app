@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "465924288492",
+    "project_id": "people-app-80d68",
+    "storage_bucket": "people-app-80d68.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:465924288492:android:dba9224fba1838a2421ac9",
+        "android_client_info": {
+          "package_name": "com.example.people_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAjzXL74-o8p07LrIe9uZAP2pjXIqmDQzU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
