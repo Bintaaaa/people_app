@@ -28,6 +28,19 @@ class UserScreen extends StatelessWidget {
           style: TextStyleConstants.pageTitles,
         ),
         centerTitle: true,
+        actions: _mode().isUpdate
+            ? [
+                TextButton(
+                  onPressed: () {
+                    controller.deleteUser();
+                  },
+                  child: Text(
+                    "Hapus",
+                    style: TextStyleConstants.button,
+                  ),
+                )
+              ]
+            : null,
       ),
       body: SafeArea(
         child: Container(

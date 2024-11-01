@@ -6,18 +6,25 @@ import 'package:dependencies/get/get.dart';
 import 'package:dependencies/get_it/get_it.dart';
 import 'package:flutter/material.dart';
 import 'package:main_domain/domain/params/user_params.dart';
+import 'package:main_domain/domain/usecases/detele_user_use_case.dart';
 import 'package:main_domain/domain/usecases/post_user_use_case.dart';
 import 'package:main_domain/domain/usecases/update_user_use_case.dart';
 
 class UserScreenController extends GetxController {
   final nameController = TextEditingController();
   final jobController = TextEditingController();
+
   final PostUserUseCase postUseCase = sl<PostUserUseCase>();
   final UpdateUserUseCase updateUseCase = sl<UpdateUserUseCase>();
+  final DeleteUserUseCase deleteUseCase = sl<DeleteUserUseCase>();
+
   var userState = ViewData.initial().obs;
+  var deleteState = ViewData.initial().obs;
   var isDisable = true.obs;
+  var isUpdate = false.obs;
+
   late UserParams? userParams;
-  RxBool isUpdate = false.obs;
+
   @override
   void onInit() {
     super.onInit();
@@ -95,6 +102,35 @@ class UserScreenController extends GetxController {
         );
         Get.snackbar(
           "Berhasil Memperbaharui User",
+          "Terimaksih sudah menggunakan fitur ini",
+          backgroundColor: ConstansValues.colors.green,
+        );
+        Get.offAllNamed(RoutesConstans.homeScreen);
+      },
+    );
+  }
+
+  Future<void> deleteUser() async {
+    deleteState.value = ViewData.loading();
+    final result = await deleteUseCase.call(userParams!.id!);
+    result.fold(
+      (failure) {
+        deleteState.value = ViewData.error(
+          message: failure.errorMessage,
+          failureResponse: failure,
+        );
+        Get.snackbar(
+          "Gagal Hapus User",
+          failure.errorMessage,
+          backgroundColor: ConstansValues.colors.red,
+        );
+      },
+      (data) {
+        deleteState.value = ViewData.loaded(
+          data: data,
+        );
+        Get.snackbar(
+          "Berhasil Hapus User",
           "Terimaksih sudah menggunakan fitur ini",
           backgroundColor: ConstansValues.colors.green,
         );
